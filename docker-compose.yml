@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  postgres:
+    image: bitnami/postgresql:latest
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=shed
+    volumes:
+      - postgres_data:/bitnami/postgresql
+  cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass 1234
+    volumes:
+      - cache:/data
+
+volumes:
+  postgres_data:
+  cache:
+    driver: local
