@@ -4,7 +4,7 @@ import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 
 @Injectable()
 export class PostgresConfigService implements TypeOrmOptionsFactory {
-  constructor(private configService: ConfigService) {}
+  constructor(private configService: ConfigService) { }
   createTypeOrmOptions(): TypeOrmModuleOptions | Promise<TypeOrmModuleOptions> {
     return {
       type: 'postgres',
@@ -12,10 +12,10 @@ export class PostgresConfigService implements TypeOrmOptionsFactory {
       autoLoadEntities: true,
       entities: [__dirname + '/**/*.entity{.js,.ts}'],
       synchronize: true,
-      logging: false
-      // ssl: {
-      //     rejectUnauthorized: false,
-      // },
+      logging: false,
+      ssl: {
+        rejectUnauthorized: this.configService.get<string>('NODE_ENV') === 'production' ? false : true,
+      },
     };
   }
 }
