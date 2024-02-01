@@ -1,7 +1,7 @@
-import { Module } from "@nestjs/common";
-import { ClientScheduleRelationModule } from "./client_schedule/client_schedule.module";
+import { Module } from '@nestjs/common';
+import { ClientScheduleRelationModule } from './client_schedule/client_schedule.module';
 
 @Module({
-    imports: [ClientScheduleRelationModule]
+  imports: [ClientScheduleRelationModule]
 })
-export class RealtionsModule { }
+export class RealtionsModule {}

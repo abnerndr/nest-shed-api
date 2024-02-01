@@ -6,7 +6,7 @@ import { BullModule } from '@nestjs/bull';
 import { BullConfigService } from './config/bull.config.service';
 import { AllModule } from './app/all.module';
 import { SendGridModule } from '@ntegral/nestjs-sendgrid';
-import { SendGridConfigService } from './config/sendgrid.config.service';
+import { SendGrindConfigService } from './config/sendgrid.config.service';
 
 @Module({
   imports: [
@@ -23,8 +23,8 @@ import { SendGridConfigService } from './config/sendgrid.config.service';
       useClass: BullConfigService
     }),
     SendGridModule.forRootAsync({
-      useClass: SendGridConfigService
+      useClass: SendGrindConfigService
     })
-  ],
+  ]
 })
 export class AppModule { }

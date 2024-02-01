@@ -1,8 +1,8 @@
-import { JwtEntity } from "./jwt.entity";
+import { JwtEntity } from './jwt.entity';
 
 export class CreateJwtDto {
-    token: string;
-    user_id: string;
+  token: string;
+  user_id: string;
 }
 
-export class ShowJwtDto extends JwtEntity { }
+export class ShowJwtDto extends JwtEntity {}
