@@ -1,0 +1,24 @@
+body {
+  background-color: #000;
+}
+
+.swagger-ui .opblock-summary {
+  color: #fff;
+}
+
+.swagger-ui .btn,
+.swagger-ui .btn-primary {
+  color: #000000;
+}
+
+/* Cor de fundo dos botões preta */
+.swagger-ui .btn,
+.swagger-ui .btn-primary {
+  background-color: #000000;
+}
+
+/* Bordas dos botões pretas (opcional) */
+.swagger-ui .btn,
+.swagger-ui .btn-primary {
+  border-color: #000000;
+}
