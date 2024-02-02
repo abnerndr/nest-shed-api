@@ -20,7 +20,7 @@ async function bootstrap() {
     .build();
 
   const documentSwagger = SwaggerModule.createDocument(app, swaggerOptions)
-  SwaggerModule.setup('', app, documentSwagger, {
+  SwaggerModule.setup('/docs', app, documentSwagger, {
     customCss: '/static/swagger-dark-theme.html'
   })
 
