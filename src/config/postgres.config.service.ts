@@ -13,9 +13,9 @@ export class PostgresConfigService implements TypeOrmOptionsFactory {
       entities: [__dirname + '/**/*.entity{.js,.ts}'],
       synchronize: true,
       logging: false,
-      // ssl: {
-      //   rejectUnauthorized: this.configService.get<string>('NODE_ENV') === 'production' ? false : true,
-      // },
+      ssl: {
+        rejectUnauthorized: false
+      },
     };
   }
 }
