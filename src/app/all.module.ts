@@ -7,6 +7,7 @@ import { FinancialModule } from './financial/financial.module';
 import { RealtionsModule } from './relations/relations.module';
 import { SendGridModule } from './sendgrid/sendgrid.module';
 import { AuthModule } from './auth/auth.module';
+import { CompanyModule } from './company/company.module';
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { AuthModule } from './auth/auth.module';
     StockModule,
     FinancialModule,
     RealtionsModule,
-    SendGridModule
+    SendGridModule,
+    CompanyModule
   ]
 })
 export class AllModule { }

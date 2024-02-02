@@ -1,7 +1,8 @@
+import { CompanyEntity } from '../company/company.entity';
 import { UserEntity } from './user.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateUserDto {
+export class CreatePropsDto {
   @ApiProperty()
   full_name: string;
 
@@ -12,10 +13,7 @@ export class CreateUserDto {
   password?: string;
 
   @ApiProperty()
-  cpf: string;
-
-  @ApiProperty()
-  cnpj: string;
+  document_number: string;
 
   @ApiProperty()
   phone: string;
@@ -24,25 +22,23 @@ export class CreateUserDto {
   photo_url: string;
 
   @ApiProperty()
-  address_complete: string;
+  address: string;
 
   @ApiProperty()
   zip_code: string;
 
   @ApiProperty()
-  bussiness_name: string;
-
-  @ApiProperty()
-  bussiness_picture_url: string;
-
-  @ApiProperty()
   is_active: boolean;
 
   @ApiProperty()
-  payment_is_valid: boolean;
+  company: CompanyEntity;
+}
+
+export class CreateUserDto {
+  data: CreatePropsDto;
 
   @ApiProperty()
-  last_payment_date: string;
+  company_id: string;
 }
 
 export class ResponseUserDto extends UserEntity { }

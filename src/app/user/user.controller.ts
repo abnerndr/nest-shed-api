@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Param, Post } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './user.dto';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
@@ -9,8 +9,11 @@ export class UserController {
   constructor(private userService: UserService) { }
 
   @ApiBody({ type: CreateUserDto })
-  @Post('create')
-  async createUser(@Body() payload: CreateUserDto) {
-    return await this.userService.store(payload);
+  @Post('create/:company_id')
+  async createUser(
+    @Body() data: CreateUserDto['data'],
+    @Param('company_id') companyId: CreateUserDto['company_id']
+  ) {
+    return await this.userService.store({ data, company_id: companyId });
   }
 }

@@ -38,7 +38,7 @@ export class AuthService {
     if (!user) {
       throw new HttpException('Usuário não encontrado na base de dados, tente realizar um cadastro ou entre em contato com o suporte.', HttpStatus.NOT_FOUND)
     }
-    const code = await createPass(user.cpf ?? user.cnpj)
+    const code = await createPass(user?.document_number)
     const url = `${WEBSITE_URL}/login/${code}`
     const firstName = user.full_name.split(' ')[0]
     const hash = await bcrypt.hash(code, 10);
@@ -75,6 +75,8 @@ export class AuthService {
     })
 
     const jwt = await this.jwtVerify({ token, userId: user.id })
+
+    delete user.password
 
     return {
       user,

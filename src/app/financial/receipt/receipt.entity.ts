@@ -1,12 +1,13 @@
+import { CompanyEntity } from 'src/app/company/company.entity';
 import { UserEntity } from 'src/app/user/user.entity';
 import {
   BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn
 } from 'typeorm';
 
 @Entity('receipts')
@@ -27,6 +28,7 @@ export class ReceiptEntity extends BaseEntity {
   item_qnt: string;
 
   @ManyToOne(() => UserEntity, (user: UserEntity) => user.recepits)
+  @JoinColumn({ name: 'user_id' })
   user: UserEntity;
 
   @CreateDateColumn({

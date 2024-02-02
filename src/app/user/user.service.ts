@@ -3,17 +3,20 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto, ResponseUserDto } from './user.dto';
-import { format } from 'date-fns';
 import { createPass } from 'src/utils/helper/user/hash';
+import { CompanyService } from '../company/company.service';
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(UserEntity) private userService: Repository<UserEntity>
+    @InjectRepository(UserEntity) private userService: Repository<UserEntity>,
+    private companyService: CompanyService
   ) { }
 
-  async store(data: CreateUserDto): Promise<ResponseUserDto> {
-    const verifyUser = await this.userService.findOne({ where: { cpf: data.cpf } });
+  async store({ data, company_id }: CreateUserDto): Promise<ResponseUserDto> {
+    const verifyUser = await this.userService.findOne({ where: { document_number: data.document_number } });
+    const company = await this.companyService.show('id', company_id)
+
 
     if (verifyUser) {
       throw new HttpException(
@@ -22,12 +25,10 @@ export class UserService {
       );
     }
 
-    const passKey = await createPass(data.cpf ?? data.cnpj);
-    const nowDate = format(new Date(), 'yyyy-MM-dd');
+    const passKey = await createPass(data.document_number);
     data.password = passKey;
-    data.payment_is_valid = true;
-    data.last_payment_date = nowDate;
     data.is_active = true;
+    data.company = company
 
     const user = await this.userService.save(data);
 

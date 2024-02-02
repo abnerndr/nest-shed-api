@@ -10,17 +10,25 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UserService } from '../user/user.service';
 import { SendMailService } from '../sendgrid/sendgrid.service';
+import { CompanyService } from '../company/company.service';
+import { CompanyEntity } from '../company/company.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserEntity, JwtEntity, UserEntity]),
+    TypeOrmModule.forFeature([UserEntity, JwtEntity, UserEntity, CompanyEntity]),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
       secret: JWT_SECRET_KEY,
       signOptions: { expiresIn: '12h' }
     })
   ],
-  providers: [AuthService, JwtAuthService, UserService, SendMailService],
+  providers: [
+    AuthService,
+    JwtAuthService,
+    UserService,
+    SendMailService,
+    CompanyService
+  ],
   controllers: [AuthController]
 })
 export class AuthModule { }
