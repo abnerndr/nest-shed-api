@@ -6,11 +6,12 @@
   "private": true,
   "license": "MIT",
   "engines": {
-    "node": "18"
+    "node": ">=18"
   },
   "scripts": {
     "build": "npx nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "kill:port": "npx kill-port $port",
     "start:old": "nest start",
     "start": "node dist/main.js",
     "start:dev": "nest start --watch",
