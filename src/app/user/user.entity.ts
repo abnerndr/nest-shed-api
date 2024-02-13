@@ -6,12 +6,15 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
 import { CompanyEntity } from '../company/company.entity';
 import { ExpenseEntity } from '../financial/expenses/expenses.entity';
 import { ReceiptEntity } from '../financial/receipt/receipt.entity';
+import { Permission, Role } from './roles.interface';
+import { SignatureEntity } from '../signature/signature.entity';
 
 @Entity('users')
 export class UserEntity extends BaseEntity {
@@ -48,15 +51,25 @@ export class UserEntity extends BaseEntity {
   @Column({ type: 'boolean', default: true })
   is_active: boolean;
 
+  @Column({ type: 'text', default: '' })
+  role: Role;
+
+  @Column({ type: 'jsonb', default: [] })
+  permissions: Permission[];
+
   @ManyToOne(() => CompanyEntity, (company: CompanyEntity) => company.users)
   @JoinColumn({ name: 'company_id' })
-  company: CompanyEntity
+  company: CompanyEntity;
 
   @OneToMany(() => ExpenseEntity, (expenses: ExpenseEntity) => expenses.user)
   expenses: ExpenseEntity[];
 
   @OneToMany(() => ReceiptEntity, (recepits: ReceiptEntity) => recepits.user)
   recepits: ReceiptEntity[];
+
+  @OneToOne(() => SignatureEntity, (signature: SignatureEntity) => signature.user)
+  @JoinColumn({ name: 'signature_id' })
+  signature: SignatureEntity;
 
   @CreateDateColumn({
     type: 'timestamp',

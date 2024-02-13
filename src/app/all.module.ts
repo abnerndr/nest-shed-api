@@ -8,6 +8,7 @@ import { RealtionsModule } from './relations/relations.module';
 import { SendGridModule } from './sendgrid/sendgrid.module';
 import { AuthModule } from './auth/auth.module';
 import { CompanyModule } from './company/company.module';
+import { SignatureModule } from './signature/signature.module';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { CompanyModule } from './company/company.module';
     FinancialModule,
     RealtionsModule,
     SendGridModule,
-    CompanyModule
+    CompanyModule,
+    SignatureModule
   ]
 })
-export class AllModule { }
+export class AllModule {}
