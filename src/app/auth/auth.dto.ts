@@ -7,7 +7,7 @@ export class CreateAuthDto {
 
 export class CreateLoginDto {
   email: string;
-  passKey: string;
+  pass_key: string;
 }
 
 export class ResponseSendTokenDto {
@@ -31,7 +31,7 @@ export class CreateSendTokenDto {
 
 export class CreateJwtVerifyDto {
   token: string;
-  userId: string
+  user_id: string
 }
 
 export class ShowLoginDto {

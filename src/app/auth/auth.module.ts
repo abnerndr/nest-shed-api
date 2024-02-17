@@ -12,6 +12,7 @@ import { UserService } from '../user/user.service';
 import { SendMailService } from '../sendgrid/sendgrid.service';
 import { CompanyService } from '../company/company.service';
 import { CompanyEntity } from '../company/company.entity';
+import { CustomerService } from '../payments/customer/customer.service';
 
 @Module({
   imports: [
@@ -27,7 +28,8 @@ import { CompanyEntity } from '../company/company.entity';
     JwtAuthService,
     UserService,
     SendMailService,
-    CompanyService
+    CompanyService,
+    CustomerService
   ],
   controllers: [AuthController]
 })

@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CompanyEntity } from "./company.entity";
 import { Repository } from "typeorm";
-import { CreateCompanyDto, ResponseCompanyDto } from "./company.dto";
+import { CreateCompanyDto, ResponseCompanyDto, ShowCompanyDto } from "./company.dto";
 import { format } from "date-fns";
 
 @Injectable()
@@ -31,9 +31,24 @@ export class CompanyService {
         return companyData
     }
 
+    async showRelation(dynamicField: string, dynamicValue: string): Promise<ResponseCompanyDto> {
+        let condition: any = {}
+        condition[dynamicField] = dynamicValue
+        return await this.companyService.findOne({ where: condition, relations: { users: true } })
+    }
+
     async show(dynamicField: string, dynamicValue: string): Promise<ResponseCompanyDto> {
         let condition: any = {}
         condition[dynamicField] = dynamicValue
         return await this.companyService.findOne({ where: condition })
+    }
+
+    async update(id: string, company: CompanyEntity): Promise<ResponseCompanyDto> {
+        try {
+            await this.companyService.update(id, company);
+            return await this.companyService.findOne({ where: { id } });
+        } catch (error) {
+            throw new HttpException('erro ao tentar atualizar a empresa', HttpStatus.INTERNAL_SERVER_ERROR)
+        }
     }
 }

@@ -7,6 +7,8 @@ import { BullConfigService } from './config/bull.config.service';
 import { AllModule } from './app/all.module';
 import { SendGridModule } from '@ntegral/nestjs-sendgrid';
 import { SendGrindConfigService } from './config/sendgrid.config.service';
+import { StripeModule } from 'nestjs-stripe';
+import { StripeConfigService } from './config/stripe.config.service';
 
 @Module({
   imports: [
@@ -24,6 +26,9 @@ import { SendGrindConfigService } from './config/sendgrid.config.service';
     }),
     SendGridModule.forRootAsync({
       useClass: SendGrindConfigService
+    }),
+    StripeModule.forRootAsync({
+      useClass: StripeConfigService
     })
   ]
 })

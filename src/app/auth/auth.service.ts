@@ -54,9 +54,9 @@ export class AuthService {
     }
   }
 
-  async login({ email, passKey }: CreateLoginDto): Promise<ShowLoginDto> {
+  async login({ email, pass_key }: CreateLoginDto): Promise<ShowLoginDto> {
     const user = await this.userService.show('email', email)
-    const verifyPassKey = await bcrypt.compare(passKey, user.password)
+    const verifyPassKey = await bcrypt.compare(pass_key, user.password)
 
     if (!verifyPassKey) {
       throw new HttpException(
@@ -74,7 +74,7 @@ export class AuthService {
       secret: JWT_SECRET_KEY
     })
 
-    const jwt = await this.jwtVerify({ token, userId: user.id })
+    const jwt = await this.jwtVerify({ token, user_id: user.id })
 
     delete user.password
 
@@ -85,9 +85,9 @@ export class AuthService {
   }
 
   // verificar jwt
-  async jwtVerify({ token, userId }: CreateJwtVerifyDto): Promise<ShowJwtDto> {
+  async jwtVerify({ token, user_id }: CreateJwtVerifyDto): Promise<ShowJwtDto> {
 
-    const jwtData = await this.jwtAuthService.show('user_id', userId);
+    const jwtData = await this.jwtAuthService.show('user_id', user_id);
     if (jwtData) {
       const deleteMessage = await this.jwtAuthService.destroy(jwtData?.id);
       if (deleteMessage === null) {
@@ -97,7 +97,7 @@ export class AuthService {
 
     const createToken = {
       token,
-      user_id: userId
+      user_id
     }
 
     const jwtResponse = await this.jwtAuthService.store(createToken);

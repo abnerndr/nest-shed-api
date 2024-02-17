@@ -1161,6 +1161,13 @@
   dependencies:
     undici-types "~5.26.4"
 
+"@types/node@>=8.1.0":
+  version "20.11.17"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.17.tgz#cdd642d0e62ef3a861f88ddbc2b61e32578a9292"
+  integrity sha512-QmgQZGWu1Yw9TDyAP9ZzpFJKynYNeOvwMJmaxABfieQoVoiVOS6MN1WSpqpRcbeA5+RW82kraAVxCCJg+780Qw==
+  dependencies:
+    undici-types "~5.26.4"
+
 "@types/passport-jwt@^4.0.1":
   version "4.0.1"
   resolved "https://registry.npmjs.org/@types/passport-jwt/-/passport-jwt-4.0.1.tgz"
@@ -4331,6 +4338,11 @@ neo-async@^2.6.2:
   resolved "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
+nestjs-stripe@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/nestjs-stripe/-/nestjs-stripe-1.0.0.tgz#a001e8f691e7b6d3e5bb838b2621c955d33d66e6"
+  integrity sha512-esBcx9CTix8hfk+wkwVg7IvJcCXXa8e7NAtJLWgW/fb4vOFCp1Ai5EpEgV3hZKoPCERL/DtvKM0tvME+iWWf0Q==
+
 node-abort-controller@^3.0.1:
   version "3.1.1"
   resolved "https://registry.npmjs.org/node-abort-controller/-/node-abort-controller-3.1.1.tgz"
@@ -5264,6 +5276,14 @@ strip-json-comments@^3.1.1:
   version "3.1.1"
   resolved "https://registry.npmjs.org/strip-json-comments/-/strip-json-comments-3.1.1.tgz"
   integrity sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==
+
+stripe@^14.16.0:
+  version "14.16.0"
+  resolved "https://registry.yarnpkg.com/stripe/-/stripe-14.16.0.tgz#ce9517413c4c25a4c94d8c3cff357fe3f393b2ec"
+  integrity sha512-1gOr2LzafWV84cPIO5Md/QPh4XVPLKULVuRpBVOV3Plq3seiHmg/eeOktX+hDl8jpNZuORHYaUJGrNqrABLwdg==
+  dependencies:
+    "@types/node" ">=8.1.0"
+    qs "^6.11.0"
 
 superagent@^8.1.2:
   version "8.1.2"

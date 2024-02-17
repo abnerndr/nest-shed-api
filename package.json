@@ -45,11 +45,13 @@
     "date-fns": "^3.3.1",
     "dotenv": "^16.4.1",
     "mailersend": "^2.2.0",
+    "nestjs-stripe": "^1.0.0",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "pg": "^8.11.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
+    "stripe": "^14.16.0",
     "swagger-ui-express": "^5.0.0",
     "typeorm": "^0.3.20"
   },

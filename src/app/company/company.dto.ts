@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { CompanyEntity } from "./company.entity";
+import { UserEntity } from "../user/user.entity";
 
 export class CreateCompanyDto {
     @ApiProperty({ type: 'text', default: 'company name' })
@@ -31,6 +32,10 @@ export class CreateCompanyDto {
 
     @ApiProperty({ type: 'text', default: 'yyyy-mm-dd' })
     last_payment_date: string;
+}
+
+export class ShowCompanyDto extends CreateCompanyDto {
+    users: UserEntity[]
 }
 
 export class ResponseCompanyDto extends CompanyEntity { }

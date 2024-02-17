@@ -1,3 +1,5 @@
+import { CompanyEntity } from 'src/app/company/company.entity';
+import { UserEntity } from 'src/app/user/user.entity';
 import {
   BaseEntity,
   Column,
@@ -5,27 +7,43 @@ import {
   DeleteDateColumn,
   Entity,
   JoinColumn,
-  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
-import { CompanyEntity } from '../company/company.entity';
-import { UserEntity } from '../user/user.entity';
 
-@Entity('signatures')
-export class SignatureEntity extends BaseEntity {
+
+@Entity('subscriptions')
+export class SubscriptionEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ type: 'bigint', generated: 'increment' })
   bid: number;
 
-  @OneToOne(() => CompanyEntity, (company: CompanyEntity) => company.signature)
+  @Column({ type: 'text', default: '' })
+  plan: 'basic' | 'pro';
+
+  @Column({ type: 'text', default: '' })
+  subscription_id: string;
+
+  @Column({ type: 'text', default: '' })
+  customer_id: string;
+
+  @Column({ type: 'text', default: '' })
+  next_payment_date: Date;
+
+  @Column({ type: 'text', default: '' })
+  inital_payment_date: Date;
+
+  @Column({ type: 'text', default: '' })
+  create_payment_date: Date;
+
+  @OneToOne(() => CompanyEntity, (company: CompanyEntity) => company.subscription)
   @JoinColumn({ name: 'company_id' })
   company: CompanyEntity;
 
-  @OneToOne(() => UserEntity, (user: UserEntity) => user.signature)
+  @OneToOne(() => UserEntity, (user: UserEntity) => user.subscription)
   @JoinColumn({ name: 'user_id' })
   user: UserEntity;
 

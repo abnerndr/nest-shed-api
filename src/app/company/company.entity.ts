@@ -10,7 +10,7 @@ import {
   UpdateDateColumn
 } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
-import { SignatureEntity } from '../signature/signature.entity';
+import { SubscriptionEntity } from '../payments/subscription/subscription.entity';
 
 @Entity('companies')
 export class CompanyEntity extends BaseEntity {
@@ -53,9 +53,9 @@ export class CompanyEntity extends BaseEntity {
   @OneToMany(() => UserEntity, (users: UserEntity) => users.company)
   users: UserEntity[];
 
-  @OneToOne(() => SignatureEntity, (signature: SignatureEntity) => signature.company)
+  @OneToOne(() => SubscriptionEntity, (subscription: SubscriptionEntity) => subscription.company)
   @JoinColumn({ name: 'signature_id' })
-  signature: SignatureEntity;
+  subscription: SubscriptionEntity;
 
   @CreateDateColumn({
     type: 'timestamp',

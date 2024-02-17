@@ -13,8 +13,8 @@ import {
 import { CompanyEntity } from '../company/company.entity';
 import { ExpenseEntity } from '../financial/expenses/expenses.entity';
 import { ReceiptEntity } from '../financial/receipt/receipt.entity';
-import { Permission, Role } from './roles.interface';
-import { SignatureEntity } from '../signature/signature.entity';
+import { AddressProps, Permission, Role } from './user.interface';
+import { SubscriptionEntity } from '../payments/subscription/subscription.entity';
 
 @Entity('users')
 export class UserEntity extends BaseEntity {
@@ -43,10 +43,13 @@ export class UserEntity extends BaseEntity {
   photo_url: string;
 
   @Column({ type: 'text', default: '' })
-  address: string;
+  customer_id: string;
+
+  @Column({ type: 'jsonb', default: {} as AddressProps })
+  address: AddressProps;
 
   @Column({ type: 'text', default: '' })
-  zip_code: string;
+  postal_code: string;
 
   @Column({ type: 'boolean', default: true })
   is_active: boolean;
@@ -67,9 +70,9 @@ export class UserEntity extends BaseEntity {
   @OneToMany(() => ReceiptEntity, (recepits: ReceiptEntity) => recepits.user)
   recepits: ReceiptEntity[];
 
-  @OneToOne(() => SignatureEntity, (signature: SignatureEntity) => signature.user)
+  @OneToOne(() => SubscriptionEntity, (subscription: SubscriptionEntity) => subscription.user)
   @JoinColumn({ name: 'signature_id' })
-  signature: SignatureEntity;
+  subscription: SubscriptionEntity;
 
   @CreateDateColumn({
     type: 'timestamp',

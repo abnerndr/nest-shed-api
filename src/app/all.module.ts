@@ -8,7 +8,9 @@ import { RealtionsModule } from './relations/relations.module';
 import { SendGridModule } from './sendgrid/sendgrid.module';
 import { AuthModule } from './auth/auth.module';
 import { CompanyModule } from './company/company.module';
-import { SignatureModule } from './signature/signature.module';
+import { CustomerModule } from './payments/customer/customer.module';
+import { SubscriptionModule } from './payments/subscription/subscription.module';
+import { CouponModule } from './payments/coupon/coupon.module';
 
 @Module({
   imports: [
@@ -21,7 +23,9 @@ import { SignatureModule } from './signature/signature.module';
     RealtionsModule,
     SendGridModule,
     CompanyModule,
-    SignatureModule
+    CustomerModule,
+    SubscriptionModule,
+    CouponModule
   ]
 })
-export class AllModule {}
+export class AllModule { }
