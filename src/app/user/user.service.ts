@@ -46,6 +46,7 @@ export class UserService {
     const role = company.users.length <= 0 ? 'admin' : 'user'
     const passKey = await createPass(data.document_number);
     data.customer_id = customer.id
+    data.payment_method_id = ''
     data.role = role
     data.password = passKey;
     data.is_active = true;

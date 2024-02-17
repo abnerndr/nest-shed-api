@@ -33,6 +33,9 @@ export class CreatePropsDto {
   customer_id: string;
 
   @ApiProperty()
+  payment_method_id: string;
+
+  @ApiProperty()
   address: AddressProps;
 
   @ApiProperty()

@@ -39,7 +39,7 @@ export class AuthService {
       throw new HttpException('Usuário não encontrado na base de dados, tente realizar um cadastro ou entre em contato com o suporte.', HttpStatus.NOT_FOUND)
     }
     const code = await createPass(user?.document_number)
-    const url = `${WEBSITE_URL}/login/${code}`
+    const url = `${WEBSITE_URL}/auth/${code}`
     const firstName = user.full_name.split(' ')[0]
     const hash = await bcrypt.hash(code, 10);
     user.password = hash
@@ -55,7 +55,7 @@ export class AuthService {
   }
 
   async login({ email, pass_key }: CreateLoginDto): Promise<ShowLoginDto> {
-    const user = await this.userService.show('email', email)
+    const user = await this.userService.showRelation('email', email)
     const verifyPassKey = await bcrypt.compare(pass_key, user.password)
 
     if (!verifyPassKey) {

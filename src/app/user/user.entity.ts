@@ -45,6 +45,9 @@ export class UserEntity extends BaseEntity {
   @Column({ type: 'text', default: '' })
   customer_id: string;
 
+  @Column({ type: 'text', default: '' })
+  payment_method_id: string;
+
   @Column({ type: 'jsonb', default: {} as AddressProps })
   address: AddressProps;
 

@@ -989,7 +989,7 @@
   resolved "https://registry.npmjs.org/@tsconfig/node16/-/node16-1.0.4.tgz"
   integrity sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==
 
-"@types/babel__core@^7.1.14":
+"@types/babel__core@^7.1.14", "@types/babel__core@^7.1.20":
   version "7.20.5"
   resolved "https://registry.npmjs.org/@types/babel__core/-/babel__core-7.20.5.tgz"
   integrity sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==
@@ -5266,6 +5266,13 @@ strip-bom@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/strip-bom/-/strip-bom-4.0.0.tgz"
   integrity sha512-3xurFv5tEgii33Zi8Jtp55wEIILR9eh34FAW00PZf+JnSsTmV/ioewSgQl97JHvgjoRGwPShsWm+IdrxB35d0w==
+
+strip-debug@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/strip-debug/-/strip-debug-7.0.0.tgz#6ac9a9731bc8627764fc3c5d93ba401d8fa5ce33"
+  integrity sha512-RX5z3LmGD9850X/kdblmrcZDEIXtP36Dy2uSKQRLKZDGW6bZT4s++JZk2v6MsWh5+kiXrq1BuEl1dZZ59Qr5mA==
+  dependencies:
+    "@types/babel__core" "^7.1.20"
 
 strip-final-newline@^2.0.0:
   version "2.0.0"

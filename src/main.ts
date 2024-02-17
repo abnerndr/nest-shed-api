@@ -7,6 +7,7 @@ import { LOGGER_HOST, PORT } from './utils/constants/port';
 
 import * as express from 'express';
 import * as path from 'path';
+import { origin } from './utils/constants/cors';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -24,7 +25,7 @@ async function bootstrap() {
     customCss: '/static/swagger-dark-theme.html'
   })
 
-  app.enableCors();
+  app.enableCors({ origin, credentials: true });
   app.useGlobalPipes(new ValidationPipe());
   app.use(parser.urlencoded({ extended: false }));
   app.use(parser.text({ type: 'text/html' }));

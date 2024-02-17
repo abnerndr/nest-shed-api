@@ -7,24 +7,36 @@ import Stripe from "stripe";
 export class CustomerService {
     constructor(@InjectStripe() private readonly stripeClient: Stripe) { }
 
-    async createPaymentMethod(data: CreatePaymentMethodDto) {
+    async createPaymentMethod(data: CreateCustomertDto) {
         try {
             let paymentMethod: Stripe.Response<Stripe.PaymentMethod>
             if (data.payment_method === 'card') {
                 paymentMethod = await this.stripeClient.paymentMethods.create(
                     {
-
-                        type: data.payment_method,
+                        type: 'card',
                         card: {
                             exp_month: data.card.exp_month,
                             exp_year: data.card.exp_year,
                             number: data.card.number,
                             cvc: data.card.cvc,
                         },
-
+                        billing_details: {
+                            address: data.address,
+                            email: data.email,
+                            name: data.name,
+                            phone: data.phone
+                        }
                     })
             } else {
-                paymentMethod = await this.stripeClient.paymentMethods.create({ type: 'pix' })
+                paymentMethod = await this.stripeClient.paymentMethods.create({
+                    type: 'pix',
+                    billing_details: {
+                        address: data.address,
+                        email: data.email,
+                        name: data.name,
+                        phone: data.phone
+                    }
+                })
             }
 
             return paymentMethod
@@ -36,16 +48,14 @@ export class CustomerService {
 
     async store(data: CreateCustomertDto) {
         try {
-            const paymentMethod = await this.createPaymentMethod({ card: data.card, payment_method: data.payment_method })
-
             const customer = await this.stripeClient.customers.create({
                 address: data.address,
                 email: data.email,
                 name: data.name,
                 phone: data.phone,
-                payment_method: paymentMethod.id,
                 shipping: data.shipping
             })
+
             return customer
         } catch (error) {
             console.log(error)
