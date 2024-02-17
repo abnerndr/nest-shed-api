@@ -9,8 +9,7 @@
     "node": ">=18"
   },
   "scripts": {
-    "build": "npm run remove-logs && npx nest build",
-    "remove-logs": "strip-debug src/**/*.ts",
+    "build": "npx nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "kill:port": "npx kill-port $port",
     "start:old": "nest start",
