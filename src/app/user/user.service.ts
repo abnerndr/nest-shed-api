@@ -13,12 +13,13 @@ export class UserService {
     @InjectRepository(UserEntity) private userService: Repository<UserEntity>,
     private companyService: CompanyService,
     private customerService: CustomerService
-  ) { }
+  ) {}
 
   async store({ data, company_id }: CreateUserDto): Promise<ResponseUserDto> {
-    const verifyUser = await this.userService.findOne({ where: { document_number: data.document_number } });
-    const company = await this.companyService.showRelation('id', company_id)
-
+    const verifyUser = await this.userService.findOne({
+      where: { document_number: data.document_number }
+    });
+    const company = await this.companyService.showRelation('id', company_id);
 
     if (verifyUser) {
       throw new HttpException(
@@ -30,8 +31,8 @@ export class UserService {
     const customerShipping = {
       address: data.address,
       phone: data.email,
-      name: data.full_name,
-    }
+      name: data.full_name
+    };
 
     const customer = await this.customerService.store({
       card: data.payment.card,
@@ -40,17 +41,17 @@ export class UserService {
       email: data.email,
       name: data.full_name,
       phone: data.phone,
-      shipping: customerShipping,
-    })
+      shipping: customerShipping
+    });
 
-    const role = company.users.length <= 0 ? 'admin' : 'user'
+    const role = company.users.length <= 0 ? 'admin' : 'user';
     const passKey = await createPass(data.document_number);
-    data.customer_id = customer.id
-    data.payment_method_id = ''
-    data.role = role
+    data.customer_id = customer.id;
+    data.payment_method_id = '';
+    data.role = role;
     data.password = passKey;
     data.is_active = true;
-    data.company = company
+    data.company = company;
 
     const user = await this.userService.save(data);
 
@@ -72,7 +73,7 @@ export class UserService {
   }
 
   async update(id: string, user: UserEntity): Promise<UserEntity> {
-    await this.userService.update(id, user)
-    return await this.userService.findOne({ where: { id } })
+    await this.userService.update(id, user);
+    return await this.userService.findOne({ where: { id } });
   }
 }

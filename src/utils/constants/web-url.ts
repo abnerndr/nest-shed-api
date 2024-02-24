@@ -1,3 +1,6 @@
-const WEBSITE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://schd.com.br'
+const WEBSITE_URL =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3000'
+    : 'https://schd.com.br';
 
-export { WEBSITE_URL }
+export { WEBSITE_URL };

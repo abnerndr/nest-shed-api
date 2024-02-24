@@ -11,7 +11,7 @@ export class JwtAuthService {
   constructor(
     @InjectRepository(JwtEntity) private jwtService: Repository<JwtEntity>,
     private configService: ConfigService
-  ) { }
+  ) {}
 
   async store({ token, user_id }: CreateJwtDto): Promise<ShowJwtDto> {
     const create = this.jwtService.create({
@@ -24,8 +24,8 @@ export class JwtAuthService {
   async show(dynamicField: string, dynamicValue: string): Promise<ShowJwtDto> {
     let condition: any = {};
     condition[dynamicField] = dynamicValue;
-    const jwt = await this.jwtService.findOne({ where: condition })
-    return jwt
+    const jwt = await this.jwtService.findOne({ where: condition });
+    return jwt;
   }
 
   async generateToken() {

@@ -6,7 +6,7 @@ import { ApiBody, ApiTags } from '@nestjs/swagger';
 @ApiTags('user')
 @Controller('user')
 export class UserController {
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
   @ApiBody({ type: CreateUserDto })
   @Post('create/:company_id')
@@ -18,9 +18,7 @@ export class UserController {
   }
 
   @Get('show/:user_id')
-  async showUser(
-    @Param('user_id') userId: string
-  ) {
-    return await this.userService.showRelation('id', userId)
+  async showUser(@Param('user_id') userId: string) {
+    return await this.userService.showRelation('id', userId);
   }
 }

@@ -7,4 +7,4 @@ import { SendGridController } from './sendgrid.controller';
   providers: [SendMailService],
   controllers: [SendGridController]
 })
-export class SendGridModule { }
+export class SendGridModule {}

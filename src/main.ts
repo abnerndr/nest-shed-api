@@ -20,10 +20,10 @@ async function bootstrap() {
     .addTag('example')
     .build();
 
-  const documentSwagger = SwaggerModule.createDocument(app, swaggerOptions)
+  const documentSwagger = SwaggerModule.createDocument(app, swaggerOptions);
   SwaggerModule.setup('/docs', app, documentSwagger, {
     customCss: '/static/swagger-dark-theme.html'
-  })
+  });
 
   app.enableCors({ origin, credentials: true });
   app.useGlobalPipes(new ValidationPipe());

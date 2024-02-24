@@ -1,9 +1,8 @@
-import { UserEntity } from "../user/user.entity";
+import { UserEntity } from '../user/user.entity';
 
 export class CreateAuthDto {
   email: string;
 }
-
 
 export class CreateLoginDto {
   email: string;
@@ -31,11 +30,10 @@ export class CreateSendTokenDto {
 
 export class CreateJwtVerifyDto {
   token: string;
-  user_id: string
+  user_id: string;
 }
 
 export class ShowLoginDto {
   user: UserEntity;
   token: string;
 }
-

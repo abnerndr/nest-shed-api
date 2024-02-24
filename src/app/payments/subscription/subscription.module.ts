@@ -10,7 +10,6 @@ import { CustomerService } from '../customer/customer.service';
 import { SubscriptionController } from './subscription.controller';
 import { CouponService } from '../coupon/coupon.service';
 
-
 @Module({
   imports: [TypeOrmModule.forFeature([SubscriptionEntity, CompanyEntity, UserEntity])],
   providers: [
@@ -22,4 +21,4 @@ import { CouponService } from '../coupon/coupon.service';
   ],
   controllers: [SubscriptionController]
 })
-export class SubscriptionModule { }
+export class SubscriptionModule {}

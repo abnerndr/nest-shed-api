@@ -11,6 +11,7 @@ import { CompanyModule } from './company/company.module';
 import { CustomerModule } from './payments/customer/customer.module';
 import { SubscriptionModule } from './payments/subscription/subscription.module';
 import { CouponModule } from './payments/coupon/coupon.module';
+import { PaymentMethodModule } from './payments/payment-method/payment-method.module';
 
 @Module({
   imports: [
@@ -25,7 +26,8 @@ import { CouponModule } from './payments/coupon/coupon.module';
     CompanyModule,
     CustomerModule,
     SubscriptionModule,
-    CouponModule
+    CouponModule,
+    PaymentMethodModule
   ]
 })
 export class AllModule { }

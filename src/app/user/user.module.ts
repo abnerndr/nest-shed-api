@@ -9,7 +9,7 @@ import { CustomerService } from '../payments/customer/customer.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserEntity, CompanyEntity])],
-  providers: [UserService, CompanyService, CustomerService],
+  providers: [UserService, CompanyService, CustomerService,],
   controllers: [UserController]
 })
 export class UserModule { }

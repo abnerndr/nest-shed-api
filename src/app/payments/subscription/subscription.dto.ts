@@ -1,11 +1,9 @@
-import { SubscriptionEntity } from "./subscription.entity";
+import { SubscriptionEntity } from './subscription.entity';
 
 export class CreateSubscriptionDto {
-    user_id: string;
-    plan: 'basic' | 'pro';
-    coupon: string;
+  user_id: string;
+  plan: 'basic' | 'pro';
+  coupon: string;
 }
 
-export class ResponseSubscriptionDto extends SubscriptionEntity {
-
-}
+export class ResponseSubscriptionDto extends SubscriptionEntity {}

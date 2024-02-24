@@ -12,7 +12,6 @@ import {
   UpdateDateColumn
 } from 'typeorm';
 
-
 @Entity('subscriptions')
 export class SubscriptionEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')

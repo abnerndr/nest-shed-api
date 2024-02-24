@@ -2,7 +2,6 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-
 import { InjectStripe } from 'nestjs-stripe';
 import Stripe from 'stripe';
 import { SubscriptionEntity } from './subscription.entity';
@@ -12,34 +11,38 @@ import { CreateSubscriptionDto, ResponseSubscriptionDto } from './subscription.d
 import { selectPlan } from 'src/utils/helper/payment/subscription/select-plan';
 import { CouponService } from '../coupon/coupon.service';
 
-
 @Injectable()
 export class SubscriptionService {
   constructor(
     @InjectStripe() private readonly stripeClient: Stripe,
-    @InjectRepository(SubscriptionEntity) private subscriptionService: Repository<SubscriptionEntity>,
+    @InjectRepository(SubscriptionEntity)
+    private subscriptionService: Repository<SubscriptionEntity>,
     private userService: UserService,
     private companyService: CompanyService,
     private couponService: CouponService
-  ) { }
+  ) {}
 
-  async createSignature({ user_id, plan, coupon }: CreateSubscriptionDto): Promise<ResponseSubscriptionDto> {
+  async createSignature({
+    user_id,
+    plan,
+    coupon
+  }: CreateSubscriptionDto): Promise<ResponseSubscriptionDto> {
     try {
-      const user = await this.userService.showRelation('id', user_id)
-      const company = await this.companyService.show('id', user.company.id)
+      const user = await this.userService.showRelation('id', user_id);
+      const company = await this.companyService.show('id', user.company.id);
 
-      const planId = await selectPlan(plan)
-      const couponItem = await this.couponService.getCoupon(coupon)
+      const planId = await selectPlan(plan);
+      const couponItem = await this.couponService.getCoupon(coupon);
 
       const subscription = await this.stripeClient.subscriptions.create({
         customer: user.customer_id,
         coupon: couponItem.id || '',
         items: [
           {
-            price: planId,
-          },
-        ],
-      })
+            price: planId
+          }
+        ]
+      });
 
       const subscriptionCreate = this.subscriptionService.create({
         plan,
@@ -50,23 +53,28 @@ export class SubscriptionService {
         next_payment_date: new Date(subscription.current_period_end),
         inital_payment_date: new Date(subscription.current_period_start),
         create_payment_date: new Date(subscription.created)
-      })
+      });
 
-      const subscriptionData = await this.subscriptionService.save(subscriptionCreate)
+      const subscriptionData = await this.subscriptionService.save(subscriptionCreate);
 
-      user.subscription = subscriptionData
-      await this.userService.update(user.id, user)
+      user.subscription = subscriptionData;
+      await this.userService.update(user.id, user);
 
-      company.subscription = subscriptionData
-      await this.companyService.update(company.id, company)
+      company.subscription = subscriptionData;
+      await this.companyService.update(company.id, company);
 
-      const subscriptionResponse = await this.subscriptionService.findOne({ where: { id: subscriptionCreate.id }, relations: { user: true, company: true } })
+      const subscriptionResponse = await this.subscriptionService.findOne({
+        where: { id: subscriptionCreate.id },
+        relations: { user: true, company: true }
+      });
 
-      return subscriptionResponse
+      return subscriptionResponse;
     } catch (error) {
-      console.log(error, 'error')
-      throw new HttpException('erro ao criar assinatura', HttpStatus.INTERNAL_SERVER_ERROR)
+      console.log(error, 'error');
+      throw new HttpException(
+        'erro ao criar assinatura',
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
     }
   }
-
 }

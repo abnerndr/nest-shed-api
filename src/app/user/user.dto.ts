@@ -4,7 +4,6 @@ import { UserEntity } from './user.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import Stripe from 'stripe';
 
-
 export class CreatePaymentDto {
   payment_method: Stripe.PaymentMethodCreateParams.Type;
   card: Stripe.PaymentMethodCreateParams.Card1;
@@ -51,10 +50,10 @@ export class CreatePropsDto {
   role: Role;
 
   @ApiProperty()
-  permissions?: Permission[]
+  permissions?: Permission[];
 
   @ApiProperty()
-  payment: CreatePaymentDto
+  payment: CreatePaymentDto;
 }
 
 export class CreateUserDto {
@@ -64,5 +63,4 @@ export class CreateUserDto {
   company_id: string;
 }
 
-
-export class ResponseUserDto extends UserEntity { }
+export class ResponseUserDto extends UserEntity {}

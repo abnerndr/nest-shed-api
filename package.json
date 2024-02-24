@@ -9,6 +9,7 @@
     "node": ">=18"
   },
   "scripts": {
+    "cache": "yarn cache clean",
     "build": "npx nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "kill:port": "npx kill-port $port",

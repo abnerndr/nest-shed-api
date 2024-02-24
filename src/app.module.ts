@@ -32,4 +32,4 @@ import { StripeConfigService } from './config/stripe.config.service';
     })
   ]
 })
-export class AppModule { }
+export class AppModule {}

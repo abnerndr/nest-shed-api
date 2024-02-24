@@ -33,4 +33,4 @@ import { CustomerService } from '../payments/customer/customer.service';
   ],
   controllers: [AuthController]
 })
-export class AuthModule { }
+export class AuthModule {}

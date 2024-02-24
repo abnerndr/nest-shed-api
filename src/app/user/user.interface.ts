@@ -19,6 +19,6 @@ type AddressProps = {
   line2: string | null;
   postal_code: string | null;
   state: string | null;
-}
+};
 
-export { AddressProps }
+export { AddressProps };

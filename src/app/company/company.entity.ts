@@ -53,7 +53,10 @@ export class CompanyEntity extends BaseEntity {
   @OneToMany(() => UserEntity, (users: UserEntity) => users.company)
   users: UserEntity[];
 
-  @OneToOne(() => SubscriptionEntity, (subscription: SubscriptionEntity) => subscription.company)
+  @OneToOne(
+    () => SubscriptionEntity,
+    (subscription: SubscriptionEntity) => subscription.company
+  )
   @JoinColumn({ name: 'signature_id' })
   subscription: SubscriptionEntity;
 
