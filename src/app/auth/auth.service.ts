@@ -28,7 +28,7 @@ export class AuthService {
     private jwtService: JwtService,
     private sendMailService: SendMailService,
     private configService: ConfigService
-  ) {}
+  ) { }
 
   async sendTokenByEmail({
     email,
@@ -52,7 +52,7 @@ export class AuthService {
       );
     }
     const code = await createPass(user?.document_number);
-    const url = `${WEBSITE_URL}/auth/${code}`;
+    const url = `${WEBSITE_URL}/validate?token=${code}&email=${email}`;
     const firstName = user.full_name.split(' ')[0];
     const hash = await bcrypt.hash(code, 10);
     user.password = hash;
@@ -69,6 +69,7 @@ export class AuthService {
 
   async login({ email, pass_key }: CreateLoginDto): Promise<ShowLoginDto> {
     const user = await this.userService.showRelation('email', email);
+
     const verifyPassKey = await bcrypt.compare(pass_key, user.password);
 
     if (!verifyPassKey) {
