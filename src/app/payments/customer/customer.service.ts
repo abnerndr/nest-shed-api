@@ -1,11 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreateCustomertDto, CreatePaymentMethodDto } from './customer.dto';
 import { InjectStripe } from 'nestjs-stripe';
 import Stripe from 'stripe';
+import { CreateCustomertDto } from './dto/customer.create.dto';
+import { NewException } from 'src/utils/functions/new-exception';
 
 @Injectable()
 export class CustomerService {
-  constructor(@InjectStripe() private readonly stripeClient: Stripe) {}
+  constructor(@InjectStripe() private readonly stripeClient: Stripe) { }
 
   async createPaymentMethod(data: CreateCustomertDto) {
     try {
@@ -41,10 +42,7 @@ export class CustomerService {
       return paymentMethod;
     } catch (error) {
       console.log(error);
-      throw new HttpException(
-        'erro ao criar metodo de pagamento',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
+      NewException({ error, exceptionDescription: 'erro ao criar metodo de pagamento', exceptionStatus: HttpStatus.INTERNAL_SERVER_ERROR })
     }
   }
 
@@ -60,8 +58,7 @@ export class CustomerService {
 
       return customer;
     } catch (error) {
-      console.log(error);
-      throw new HttpException('erro ao criar customer', HttpStatus.INTERNAL_SERVER_ERROR);
+      NewException({ error, exceptionDescription: 'erro ao criar customer', exceptionStatus: HttpStatus.INTERNAL_SERVER_ERROR })
     }
   }
 }

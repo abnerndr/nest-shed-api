@@ -2,10 +2,11 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './user.entity';
 import { Repository } from 'typeorm';
-import { CreateUserDto, ResponseUserDto } from './user.dto';
 import { createPass } from 'src/utils/helper/user/hash';
 import { CompanyService } from '../company/company.service';
 import { CustomerService } from '../payments/customer/customer.service';
+import { CreateUserDto } from './dto/user.create.dto';
+import { ResponseUserDto } from './dto/user.response.dto';
 
 @Injectable()
 export class UserService {
@@ -13,7 +14,7 @@ export class UserService {
     @InjectRepository(UserEntity) private userService: Repository<UserEntity>,
     private companyService: CompanyService,
     private customerService: CustomerService
-  ) {}
+  ) { }
 
   async store({ data, company_id }: CreateUserDto): Promise<ResponseUserDto> {
     const verifyUser = await this.userService.findOne({
@@ -36,7 +37,7 @@ export class UserService {
 
     const customer = await this.customerService.store({
       card: data.payment.card,
-      payment_method: data.payment.payment_method,
+      payment_method: data.payment.type,
       address: data.address,
       email: data.email,
       name: data.full_name,
@@ -44,11 +45,11 @@ export class UserService {
       shipping: customerShipping
     });
 
-    const role = company.users.length <= 0 ? 'admin' : 'user';
+    const permission = company.users.length <= 0 ? 'admin' : 'user';
     const passKey = await createPass(data.document_number);
     data.customer_id = customer.id;
     data.payment_method_id = '';
-    data.role = role;
+    data.permissions = permission
     data.password = passKey;
     data.is_active = true;
     data.company = company;
@@ -60,19 +61,19 @@ export class UserService {
     return user;
   }
 
-  async showRelation(dynamicField: string, dynamicValue: string): Promise<UserEntity> {
+  async showRelation(dynamicField: string, dynamicValue: string): Promise<ResponseUserDto> {
     let condition: any = {};
     condition[dynamicField] = dynamicValue;
     return this.userService.findOne({ where: condition, relations: { company: true } });
   }
 
-  async show(dynamicField: string, dynamicValue: string): Promise<UserEntity> {
+  async show(dynamicField: string, dynamicValue: string): Promise<ResponseUserDto> {
     let condition: any = {};
     condition[dynamicField] = dynamicValue;
     return this.userService.findOne({ where: condition });
   }
 
-  async update(id: string, user: UserEntity): Promise<UserEntity> {
+  async update(id: string, user: UserEntity): Promise<ResponseUserDto> {
     await this.userService.update(id, user);
     return await this.userService.findOne({ where: { id } });
   }

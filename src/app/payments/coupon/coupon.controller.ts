@@ -3,10 +3,10 @@ import { CouponService } from './coupon.service';
 
 @Controller('coupon')
 export class CouponController {
-  constructor(private couponService: CouponService) {}
+  constructor(private couponService: CouponService) { }
 
   @Get('show/:coupon')
   async getCoupon(@Param('coupon') coupon: string) {
-    return await this.couponService.getCoupon(coupon);
+    return await this.couponService.getCoupon({ coupon });
   }
 }

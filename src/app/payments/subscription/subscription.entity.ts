@@ -11,6 +11,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
+import { subscriptionPlanProps } from './dto/subscription';
 
 @Entity('subscriptions')
 export class SubscriptionEntity extends BaseEntity {
@@ -21,7 +22,7 @@ export class SubscriptionEntity extends BaseEntity {
   bid: number;
 
   @Column({ type: 'text', default: '' })
-  plan: 'basic' | 'pro';
+  plan: subscriptionPlanProps;
 
   @Column({ type: 'text', default: '' })
   subscription_id: string;

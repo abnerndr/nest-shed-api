@@ -1,0 +1,1 @@
+export type ScheduleStatusProps = 'default' | 'process' | 'canceled' | 'completed'

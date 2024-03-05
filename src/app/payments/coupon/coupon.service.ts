@@ -1,13 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectStripe } from 'nestjs-stripe';
 import { getCouponId } from 'src/utils/helper/payment/coupon/get-coupon-id';
 import Stripe from 'stripe';
+import { CreateCouponDto } from './dto/coupon.create.dto';
+import { NewException } from 'src/utils/functions/new-exception';
 
 @Injectable()
 export class CouponService {
-  constructor(@InjectStripe() private readonly stripeClient: Stripe) {}
+  constructor(@InjectStripe() private readonly stripeClient: Stripe) { }
 
-  async getCoupon(coupon: string) {
+  async getCoupon({ coupon }: CreateCouponDto) {
     try {
       const coupons = await this.stripeClient.coupons.list();
       const couponId = await getCouponId({ code: coupon, coupons });
@@ -15,7 +17,7 @@ export class CouponService {
 
       return couponData;
     } catch (error) {
-      console.log(error);
+      NewException({ error, exceptionDescription: 'erro ao criar um novo cupon', exceptionStatus: HttpStatus.INTERNAL_SERVER_ERROR })
     }
   }
 }

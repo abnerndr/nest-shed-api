@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectSendGrid, SendGridService } from '@ntegral/nestjs-sendgrid';
-import { CreateLoginEmailDto } from './sendgrid.dto';
+import { CreateLoginEmailDto } from './dto/sendgrid.create.dto';
 
 @Injectable()
 export class SendMailService {
   constructor(
     @InjectSendGrid() private sendGridClient: SendGridService,
     private configService: ConfigService
-  ) {}
+  ) { }
   private SenderEmail = this.configService.get<string>('SENDGRID_SENDER');
   private TemplateId = this.configService.get<string>('SENDGRID_TEMPLATE_ID');
 

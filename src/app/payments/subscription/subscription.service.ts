@@ -7,9 +7,11 @@ import Stripe from 'stripe';
 import { SubscriptionEntity } from './subscription.entity';
 import { UserService } from 'src/app/user/user.service';
 import { CompanyService } from 'src/app/company/company.service';
-import { CreateSubscriptionDto, ResponseSubscriptionDto } from './subscription.dto';
 import { selectPlan } from 'src/utils/helper/payment/subscription/select-plan';
 import { CouponService } from '../coupon/coupon.service';
+import { CreateSubscriptionDto } from './dto/subscription.create.dto';
+import { ResponseSubscriptionDto } from './dto/subscription.response.dto';
+import { NewException } from 'src/utils/functions/new-exception';
 
 @Injectable()
 export class SubscriptionService {
@@ -20,7 +22,7 @@ export class SubscriptionService {
     private userService: UserService,
     private companyService: CompanyService,
     private couponService: CouponService
-  ) {}
+  ) { }
 
   async createSignature({
     user_id,
@@ -32,7 +34,7 @@ export class SubscriptionService {
       const company = await this.companyService.show('id', user.company.id);
 
       const planId = await selectPlan(plan);
-      const couponItem = await this.couponService.getCoupon(coupon);
+      const couponItem = await this.couponService.getCoupon({ coupon });
 
       const subscription = await this.stripeClient.subscriptions.create({
         customer: user.customer_id,
@@ -70,11 +72,7 @@ export class SubscriptionService {
 
       return subscriptionResponse;
     } catch (error) {
-      console.log(error, 'error');
-      throw new HttpException(
-        'erro ao criar assinatura',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
+      NewException({ error, exceptionDescription: 'erro ao criar assinatura', exceptionStatus: HttpStatus.INTERNAL_SERVER_ERROR })
     }
   }
 }

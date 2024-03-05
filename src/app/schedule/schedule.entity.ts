@@ -9,6 +9,7 @@ import {
   UpdateDateColumn
 } from 'typeorm';
 import { ClientEntity } from '../client/client.entity';
+import { ScheduleStatusProps } from './dto/schedule';
 
 @Entity('schedules')
 export class ScheduleEntity extends BaseEntity {
@@ -19,7 +20,7 @@ export class ScheduleEntity extends BaseEntity {
   bid: number;
 
   @Column({ type: 'text', default: 'default' })
-  status: 'default' | 'process' | 'canceled' | 'completed';
+  status: ScheduleStatusProps;
 
   @Column({ type: 'boolean', default: false })
   is_notified: boolean;

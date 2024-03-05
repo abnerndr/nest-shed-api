@@ -1,6 +1,5 @@
-import Stripe from 'stripe'
-
-type Address = Stripe.Address
+import { StripeAddressProps } from 'src/@types/address';
+import { CurrencyTypePlanProps, PlanProps } from 'src/@types/plan';
 
 export class CreatePaymentMethodDto {
     type: 'card';
@@ -15,12 +14,12 @@ export class CreatePaymentMethodDto {
 export class CreatePaymentIntentDto {
     user_id: string;
     payment_id: string;
-    plan?: 'basic' | 'pro';
-    currency?: 'brl';
+    plan?: PlanProps;
+    currency?: CurrencyTypePlanProps;
     automatic_payment: boolean;
     receipt_email: string;
     shipping: {
-        address: Address;
+        address: StripeAddressProps;
         name: string;
     }
 }

@@ -13,8 +13,9 @@ import {
 import { CompanyEntity } from '../company/company.entity';
 import { ExpenseEntity } from '../financial/expenses/expenses.entity';
 import { ReceiptEntity } from '../financial/receipt/receipt.entity';
-import { AddressProps, Permission, Role } from './user.interface';
 import { SubscriptionEntity } from '../payments/subscription/subscription.entity';
+import { UserPermissionsProps, UserRolesProps } from './dto/user';
+import { AddressProps } from 'src/@types/address';
 
 @Entity('users')
 export class UserEntity extends BaseEntity {
@@ -58,10 +59,10 @@ export class UserEntity extends BaseEntity {
   is_active: boolean;
 
   @Column({ type: 'text', default: '' })
-  role: Role;
+  permissions: UserPermissionsProps;
 
-  @Column({ type: 'jsonb', default: [] })
-  permissions: Permission[];
+  @Column({ type: 'jsonb', default: [] as UserRolesProps[] })
+  roles: UserRolesProps[];
 
   @ManyToOne(() => CompanyEntity, (company: CompanyEntity) => company.users)
   @JoinColumn({ name: 'company_id' })

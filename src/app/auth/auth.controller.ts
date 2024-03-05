@@ -1,10 +1,10 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateLoginDto } from './auth.dto';
+import { CreateLoginDto } from './dto/auth.create.dto';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   @Post('send/token')
   async sendToken(@Body() payload: { email: string }) {

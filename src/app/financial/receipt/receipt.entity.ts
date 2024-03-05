@@ -1,4 +1,3 @@
-import { CompanyEntity } from 'src/app/company/company.entity';
 import { UserEntity } from 'src/app/user/user.entity';
 import {
   BaseEntity,

@@ -2,14 +2,16 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CompanyEntity } from './company.entity';
 import { Repository } from 'typeorm';
-import { CreateCompanyDto, ResponseCompanyDto, ShowCompanyDto } from './company.dto';
 import { format } from 'date-fns';
+import { CreateCompanyDto } from './dto/company.create.dto';
+import { ResponseCompanyDto } from './dto/company.response.dto';
+import { NewException } from 'src/utils/functions/new-exception';
 
 @Injectable()
 export class CompanyService {
   constructor(
     @InjectRepository(CompanyEntity) private companyService: Repository<CompanyEntity>
-  ) {}
+  ) { }
 
   async store(data: CreateCompanyDto): Promise<ResponseCompanyDto> {
     const company = await this.companyService.findOne({
@@ -56,10 +58,7 @@ export class CompanyService {
       await this.companyService.update(id, company);
       return await this.companyService.findOne({ where: { id } });
     } catch (error) {
-      throw new HttpException(
-        'erro ao tentar atualizar a empresa',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
+      NewException({ error, exceptionDescription: 'erro ao tentar atualizar a empresa', exceptionStatus: HttpStatus.INTERNAL_SERVER_ERROR })
     }
   }
 }

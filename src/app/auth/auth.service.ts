@@ -6,19 +6,15 @@ import { JwtService } from '@nestjs/jwt';
 import { createPass } from 'src/utils/helper/user/hash';
 
 import { WEBSITE_URL } from 'src/utils/constants/web-url';
-import {
-  CreateJwtVerifyDto,
-  CreateLoginDto,
-  CreateSendTokenDto,
-  ResponseAuthenticateDto,
-  ResponseSendTokenDto,
-  ShowLoginDto
-} from './auth.dto';
+
 import { SendMailService } from '../sendgrid/sendgrid.service';
 
 import * as bcrypt from 'bcryptjs';
 import { JWT_SECRET_KEY } from 'src/utils/constants/jwt-secret';
 import { ShowJwtDto } from './jwt/jwt.dto';
+import { CreateJwtVerifyDto, CreateLoginDto, CreateSendTokenDto } from './dto/auth.create.dto';
+import { ResponseAuthenticateDto, ResponseSendTokenDto } from './dto/auth.response.dto';
+import { ShowLoginDto } from './dto/auth.show.dto';
 
 @Injectable()
 export class AuthService {

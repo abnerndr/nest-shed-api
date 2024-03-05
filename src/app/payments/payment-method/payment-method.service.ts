@@ -1,8 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectStripe } from "nestjs-stripe";
 import Stripe from "stripe";
-import { CreatePaymentIntentDto, CreatePaymentMethodDto } from "./payment-method.dto";
 import { UserService } from "src/app/user/user.service";
+import { CreatePaymentIntentDto, CreatePaymentMethodDto } from "./dto/payment-method.create.dto";
+import { NewException } from "src/utils/functions/new-exception";
 
 @Injectable()
 export class PaymentMethodService {
@@ -19,8 +20,7 @@ export class PaymentMethodService {
             })
             return paymentMethod
         } catch (error) {
-            console.log(error, 'method')
-            throw new HttpException('erro ao tentar criar metodo de pagamento', HttpStatus.INTERNAL_SERVER_ERROR)
+            NewException({ error, exceptionDescription: 'erro ao tentar criar metodo de pagamento', exceptionStatus: HttpStatus.INTERNAL_SERVER_ERROR })
         }
     }
 
@@ -45,8 +45,7 @@ export class PaymentMethodService {
             })
             return paymentMethod
         } catch (error) {
-            console.log(error, 'intent')
-            throw new HttpException('erro ao tentar criar metodo intent de pagamento', HttpStatus.INTERNAL_SERVER_ERROR)
+            NewException({ error, exceptionDescription: 'erro ao tentar criar metodo intent de pagamento', exceptionStatus: HttpStatus.INTERNAL_SERVER_ERROR })
         }
     }
 
